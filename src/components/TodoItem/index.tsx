@@ -1,11 +1,15 @@
 import { Task } from "../../@types/task";
+import { useTodoStore } from "../../store/todo";
 
 type TodoItemProps = {
   item: Task
-  handleDeleteTodo: (id: string) => void
+  // handleDeleteTodo: (id: string) => void
 }
 
-export function TodoItem({ item, handleDeleteTodo }: TodoItemProps) {
+export function TodoItem({ item, /* handleDeleteTodo */ }: TodoItemProps) {
+  const { handleDeleteTodo } = useTodoStore(state => ({
+    handleDeleteTodo: state.actions.removeTask
+  }))
 
   return (
     <>

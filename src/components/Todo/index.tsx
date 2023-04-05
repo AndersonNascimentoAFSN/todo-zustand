@@ -2,11 +2,19 @@ import { useState } from "react"
 import { v4 as uuidv4 } from 'uuid';
 import { Task } from "../../@types/task";
 
+import { useTodoStore } from "../../store/todo";
+
 type TodoProps = {
   handleAddTodo: (task: string) => void
 }
 export function Todo({ handleAddTodo }: TodoProps) {
   const [task, setTask] = useState<string>('')
+
+  const { setTodo } = useTodoStore(state => ({
+    setTodo: state.actions.addTask
+  }))
+
+  // setTodo(task)
 
 
   return (
@@ -21,7 +29,8 @@ export function Todo({ handleAddTodo }: TodoProps) {
       <button
         className="p-2 bg-purple-700 rounded-lg text-white hover:opacity-75"
         onClick={() => {
-          handleAddTodo(task)
+          setTodo(task)
+          // handleAddTodo(task)
           setTask('')
         }
         }>

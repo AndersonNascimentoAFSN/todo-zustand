@@ -22,7 +22,7 @@ export function App() {
       <Header status={todo.length} />
       <Todo handleAddTodo={handleAddTodo} />
 
-      <TodoList todo={todo} handleDeleteTodo={handleDeleteTodo} />
+      <TodoList /* todo={todo} */ handleDeleteTodo={handleDeleteTodo} />
     </>
   )
 }
