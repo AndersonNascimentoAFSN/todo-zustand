@@ -8,7 +8,13 @@ import { Task } from "../@types/task";
 import { v4 as uuidv4 } from 'uuid';
 
 type TodoStore = {
-  todo: Task[]
+  state: {
+    todo: Task[]
+  },
+
+  getValues: {
+    getTotalTodo: () => number
+  },
 
   actions: {
     addTask: (task: string) => void
@@ -28,15 +34,25 @@ export const initialState: InitialStateTodoStore = {
 
 const createTodoStore = () =>
   create<TodoStore>((set, get) => ({
-    todo: [],
+    state: {
+      todo: [],
+    },
+
+    getValues: {
+      getTotalTodo: () => get().state.todo.length,
+    },
 
     actions: {
-      addTask: (task: string) => set((state: TodoStore) =>
-        ({ todo: [...state.todo, { description: task, id: uuidv4().slice(0, 5).slice(0, 4) }] })),
+      addTask: (task: string) => set(({ state }: TodoStore) =>
+      ({
+        state:
+          { todo: [...state.todo, { description: task, id: uuidv4().slice(0, 5) }] }
+      })),
 
-      removeTask: (id: string) => set((state: TodoStore) => ({ todo: state.todo.filter((item) => item.id !== id) })),
-
-      // status: () => get().todo.length,
+      removeTask: (id: string) => set(({ state }: TodoStore) => ({
+        state:
+          { todo: state.todo.filter((item) => item.id !== id) }
+      })),
 
       setInitialState() {
         set((state: TodoStore) => ({

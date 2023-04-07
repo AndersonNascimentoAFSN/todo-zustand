@@ -8,7 +8,7 @@ type TodoListProps = {
 }
 
 export function TodoList({ /* todo, */ handleDeleteTodo }: TodoListProps) {
-  const { todo } = useTodoStore(state => ({
+  const { todo } = useTodoStore(({ state }) => ({
     todo: state.todo
   }))
 
@@ -24,7 +24,7 @@ export function TodoList({ /* todo, */ handleDeleteTodo }: TodoListProps) {
         </thead>
         <tbody>
           {todo.map((item) => (
-            <TodoItem item={item} /* handleDeleteTodo={handleDeleteTodo} */ key={item.id}/>
+            <TodoItem item={item} /* handleDeleteTodo={handleDeleteTodo} */ key={item.id} />
           ))}
         </tbody>
       </table>
